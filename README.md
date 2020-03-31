@@ -23,8 +23,118 @@ In practice, the algorithm takes as input:
 # Requirements
 - Python
 - [GWAsimulator](http://biostat.mc.vanderbilt.edu/GWAsimulator)
-- [HapMap3 data](ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2)
+- HapMap3 data: ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2
 - Pandas
+
+# Download the HapMap3 phased data for both CEU and YRI popultions
+
+### CEU population
+```
+mkdir ceu
+cd ceu
+
+prefix="ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2/CEU/TRIOS/hapmap3_r2_b36_fwd.consensus.qc.poly.chr";
+suffix="_ceu.phased.gz";
+
+
+for chr in {1..22}; do
+	wget "${prefix}${chr}${suffix}"
+done
+
+wget ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2/chrX/hapmap3_r2_b36_fwd.consensus.qc.poly.chr23_ceu.trios.phased.gz
+
+
+gunzip *.gz
+mv hapmap3_r2_b36_fwd.consensus.qc.poly.chr23_ceu.trios.phased hapmap3_r2_b36_fwd.consensus.qc.poly.chr23_ceu.phased 
+
+cd ..
+```
+### YRI population
+```
+
+mkdir yri
+cd yri
+
+prefix="ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2/YRI/TRIOS/hapmap3_r2_b36_fwd.consensus.qc.poly.chr";
+suffix="_ceu.phased.gz";
+
+
+for chr in {1..22}; do
+	wget "${prefix}${chr}${suffix}"
+done
+
+wget ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2/chrX/hapmap3_r2_b36_fwd.consensus.qc.poly.chr23_yri.trios.phased.gz
+
+
+gunzip *.gz
+mv hapmap3_r2_b36_fwd.consensus.qc.poly.chr23_yri.trios.phased hapmap3_r2_b36_fwd.consensus.qc.poly.chr23_yri.phased 
+
+cd ..
+```
+# Convert phased data to GWAsimulator input format 
+
+```
+from encoding_phased_data import convert_phased
+convert_phased('ceu')
+convert_phased('yri')
+```
+# Generate simulated data using GWAsimulator 
+
+1 - Prepare the control.dat file
+2 - Specify in the first line the path of the converted phased data
+3 - Run GWAsimulator 
+
+More details on the [manual](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/GWAsimulator/GWAsimulator_v2.0.pdf)
+
+The program generates gzipped data to save disk space and named in ```chr#.dat.gz```, where ```#``` is the chromosome number. For that, we will gunzip and rename it as as ```PLINK``` format:
+
+CEU population:
+```
+gunzip *.gz
+for f in *.dat; do
+    mv -- "$f" "$(basename -- "$f" .dat)_ceu.ped"
+done
+```
+YRI population:
+```
+gunzip *.gz
+for f in *.dat; do
+    mv -- "$f" "$(basename -- "$f" .dat)_yri.ped"
+done
+```
+
+# Merge the multiple simulated files in one .ped PLINK format:
+```
+plink --file chr1_ceu --merge-list allfiles_ceu.txt --make-bed --out simulated_data_ceu
+plink --file chr1_yri --merge-list allfiles_ceu.txt --make-bed --out simulated_data_yri
+```
+
+Here,```allfiles_ceu.txt``` was a list of the to-be-merged files, one set per row. Same for ```allfiles_yri.txt```
+
+# Merge both populations simulated genotype in one file to get an admixed population data
+
+First, let's change the Individual IDs for one file, as both files contains the same IDs
+
+```
+from update-ids import updateID
+updateID(30)
+```
+This function takes the number of simulated samples as input, here we took 30 as an example!
+It prints a file ```ids.txt ```containing 4 columns ```old_FID, IID, new_FID, IID```.
+
+Then, we use PLINK to update the IDs for YRI population data (as an example):
+
+```
+plink --bfile simulated simulated_data_yri --update-ids ids.txt --make-bed --out simulated_data_yri
+```
+ 
+Finally, we merge CEU and YRI data in one file:
+
+```
+plink --bfile simulated_data_ceu --bmerge simulated_data_yri.bed simulated_data_yri.bim simulated_data_yri.fam --make-bed --out simulated_data
+```
+
+
 
 # References:
 Li C et al., GWAsimulator: a rapid whole-genome simulation program, Bioinformatics (2008).
