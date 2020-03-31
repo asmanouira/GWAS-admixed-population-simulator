@@ -74,7 +74,7 @@ cd ..
 # Convert phased data to GWAsimulator input format 
 
 ```
-from encoding_phased_data import convert_phased
+from utils import convert_phased
 convert_phased('ceu')
 convert_phased('yri')
 ```
@@ -102,6 +102,13 @@ for f in *.dat; do
     mv -- "$f" "$(basename -- "$f" .dat)_yri.ped"
 done
 ```
+# Generate .map PLINK files for each chromosome
+
+```
+from utils import map
+map('ceu')
+map('yri')
+```
 
 # Merge the multiple simulated files in one .ped PLINK format:
 ```
@@ -116,7 +123,7 @@ Here,```allfiles_ceu.txt``` was a list of the to-be-merged files, one set per ro
 First, let's change the Individual IDs for one file, as both files contains the same IDs
 
 ```
-from update-ids import updateID
+from utils import updateID
 updateID(30)
 ```
 This function takes the number of simulated samples as input, here we took 30 as an example!
