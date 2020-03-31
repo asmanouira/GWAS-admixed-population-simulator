@@ -2,7 +2,7 @@
 Simulating GWAS data in [PLINK](https://www.cog-genomics.org/plink/) format with GWAsimulator tool using Hapmap3 data
 
 # Description
-This repository presents methods to simulate GWAS data using GWAsimulator tool, it consists of:
+This repository presents a tutorial to simulate GWAS data using [GWAsimulator](http://biostat.mc.vanderbilt.edu/GWAsimulator) tool, it consists of:
 - Use HapMap3 data as reference for GWAsimulator.
 - Convert HapMap3 phased data in GWAsimulator input format.
 - Adjust the generated data to [PLINK](https://www.cog-genomics.org/plink/) format (.ped and .map files).
@@ -26,9 +26,11 @@ In practice, the algorithm takes as input:
 - HapMap3 data: ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2
 - Pandas
 
-# Download the HapMap3 phased data for both CEU and YRI popultions
+# Tutorial
 
-### CEU population
+## Download the HapMap3 phased data for both CEU and YRI popultions
+
+#### CEU population
 ```
 mkdir ceu
 cd ceu
@@ -49,7 +51,7 @@ mv hapmap3_r2_b36_fwd.consensus.qc.poly.chr23_ceu.trios.phased hapmap3_r2_b36_fw
 
 cd ..
 ```
-### YRI population
+#### YRI population
 ```
 
 mkdir yri
@@ -71,19 +73,21 @@ mv hapmap3_r2_b36_fwd.consensus.qc.poly.chr23_yri.trios.phased hapmap3_r2_b36_fw
 
 cd ..
 ```
-# Convert phased data to GWAsimulator input format 
+## Convert phased data to GWAsimulator input format 
 
 ```
 from utils import convert_phased
 convert_phased('ceu')
 convert_phased('yri')
 ```
-# Generate simulated data using GWAsimulator 
+## Generate simulated data using GWAsimulator 
 
-1 - Prepare the control.dat file
+1 - Prepare the control.dat file for each population
 2 - Specify in the first line the path of the converted phased data
-3 - Run GWAsimulator 
-
+3 - Run GWAsimulator:
+``` GWAsimulator control_ceu.dat [seed number]
+    GWAsimulator control_yri.dat [seed number] 
+```
 More details on the [manual](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/GWAsimulator/GWAsimulator_v2.0.pdf)
 
 The program generates gzipped data to save disk space and named in ```chr#.dat.gz```, where ```#``` is the chromosome number. For that, we will gunzip and rename it as as ```PLINK``` format:
@@ -102,7 +106,7 @@ for f in *.dat; do
     mv -- "$f" "$(basename -- "$f" .dat)_yri.ped"
 done
 ```
-# Generate .map PLINK files for each chromosome
+## Generate .map PLINK files for each chromosome per population
 
 ```
 from utils import map
@@ -110,7 +114,7 @@ map('ceu')
 map('yri')
 ```
 
-# Merge the multiple simulated files in one .ped PLINK format:
+## Merge the multiple simulated files in one .ped PLINK format
 ```
 plink --file chr1_ceu --merge-list allfiles_ceu.txt --make-bed --out simulated_data_ceu
 plink --file chr1_yri --merge-list allfiles_ceu.txt --make-bed --out simulated_data_yri
@@ -118,7 +122,7 @@ plink --file chr1_yri --merge-list allfiles_ceu.txt --make-bed --out simulated_d
 
 Here,```allfiles_ceu.txt``` was a list of the to-be-merged files, one set per row. Same for ```allfiles_yri.txt```
 
-# Merge both populations genotype files in one file to get an admixed population data
+## Merge both populations genotype files in one file to get an admixed population data
 
 First, let's change the Individual IDs for one file, as both files contains the same IDs
 
@@ -134,6 +138,7 @@ Then, we use PLINK to update the IDs for YRI population data (as an example):
 ```
 plink --bfile simulated simulated_data_yri --update-ids ids.txt --make-bed --out simulated_data_yri
 ```
+More information about ```--update-ids``` in PLINK [documentation](https://www.cog-genomics.org/plink/2.0/data).
  
 Finally, we merge CEU and YRI data in one file:
 
