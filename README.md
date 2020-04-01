@@ -149,7 +149,7 @@ It prints a file ```ids.txt ```containing 4 columns ```old_FID, IID, new_FID, II
 Then, we use PLINK to update the IDs for YRI population data (as an example):
 
 ```
-plink --bfile simulated simulated_data_yri --update-ids ids.txt --make-bed --out simulated_data_yri
+plink --bfile simulated_data_yri --update-ids ids.txt --make-bed --out simulated_data_yri
 ```
 More information about ```--update-ids``` in PLINK [documentation](https://www.cog-genomics.org/plink/2.0/data).
  
