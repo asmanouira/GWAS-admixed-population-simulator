@@ -81,6 +81,7 @@ cd ..
 ## Convert phased data to GWAsimulator input format 
 
 ```
+python
 from utils import convert_phased
 convert_phased('ceu')
 convert_phased('yri')
@@ -122,6 +123,7 @@ done
 ## Generate .map PLINK files for each chromosome per population
 
 ```
+python
 from utils import phased2map
 phased2map('ceu')
 phased2map('yri')
@@ -140,6 +142,7 @@ Here,```allfiles_ceu.txt``` was a list of the to-be-merged files, one set per ro
 First, let's change the Individual IDs for one file, as both files contains the same IDs:
 
 ```
+python
 from utils import updateID
 updateID(30)
 ```
