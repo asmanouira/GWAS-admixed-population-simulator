@@ -143,7 +143,7 @@ First, let's change the Individual IDs for one file, as both files contains the 
 from utils import updateID
 updateID(30)
 ```
-This function takes the number of simulated samples as input, here we took 30 as an example!
+This function takes the number of simulated samples as input, here we took ```30``` as we siumulated 30 samples (see ```control_ceu.txt``` and ```control_yri.txt```)!
 It prints a file ```ids.txt ```containing 4 columns ```old_FID, IID, new_FID, IID```.
 
 Then, we use PLINK to update the IDs for YRI population data (as an example):
