@@ -87,7 +87,7 @@ def convert_phased(population):
 		    phased.append(SNP)
 
 		phased_wrapped = [wrap(i,2) for i in phased]
-		phased_tr = map(list,map(None,*phased_wrapped))
+		phased_tr = map(list(map(None,*phased_wrapped))
 
 	    
 	    # final dataframe
