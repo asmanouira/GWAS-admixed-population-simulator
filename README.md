@@ -130,14 +130,14 @@ phased2map('yri')
 ## Merge the multiple simulated files in one .ped PLINK format
 ```
 plink --file chr1_ceu --merge-list allfiles_ceu.txt --make-bed --out simulated_data_ceu
-plink --file chr1_yri --merge-list allfiles_ceu.txt --make-bed --out simulated_data_yri
+plink --file chr1_yri --merge-list allfiles_yri.txt --make-bed --out simulated_data_yri
 ```
 
-Here,```allfiles_ceu.txt``` was a list of the to-be-merged files, one set per row. Same for ```allfiles_yri.txt```
+Here,```allfiles_ceu.txt``` was a list of the to-be-merged files, one set per row. Same for ```allfiles_yri.txt```.
 
 ## Merge both populations genotype files in one file to get an admixed population data
 
-First, let's change the Individual IDs for one file, as both files contains the same IDs
+First, let's change the Individual IDs for one file, as both files contains the same IDs:
 
 ```
 from utils import updateID
