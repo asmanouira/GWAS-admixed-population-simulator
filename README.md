@@ -8,7 +8,7 @@ This repository presents a tutorial to simulate GWAS data using [GWAsimulator](h
 - Adjust the generated data to [PLINK](https://www.cog-genomics.org/plink/) format (.ped and .map files).
 - Generate admixed population data, this could be useful in population stratification studies.
 
-Either this repository consider ```HapMap3``` data as input reference, the algorithm could be used to other references data such as ```1000 Genome Project``` data.
+Either this repository consider ```HapMap3``` data (ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2) as input reference, the algorithm could be used to other references data such as ```1000 Genome Project``` data.
  
 11 populations were included in [HapMap3](https://www.sanger.ac.uk/resources/downloads/human/hapmap3.html), we will give an example of generating a data of two admixed populations for ```CEU``` (Utah residents with Northern and Western European ancestry from the CEPH collection) and ```YRI``` (Yoruba in Ibadan, Nigeria). You can change other populations or add more than 2 populations following the same procedure.
 
@@ -23,8 +23,8 @@ In practice, the algorithm takes as input:
 # Requirements
 - Python
 - [GWAsimulator](http://biostat.mc.vanderbilt.edu/GWAsimulator)
-- HapMap3 data: ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2
-- Pandas
+- pandas
+- [textwrap](https://pypi.org/project/textwrap3/)
 
 # Tutorial
 ## Clone the reposity
