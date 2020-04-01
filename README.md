@@ -25,6 +25,7 @@ In practice, the algorithm takes as input:
 - [GWAsimulator](http://biostat.mc.vanderbilt.edu/GWAsimulator)
 - pandas
 - [textwrap](https://pypi.org/project/textwrap3/)
+- [PLINK](https://www.cog-genomics.org/plink2)
 
 # Tutorial
 ## Clone the repository
