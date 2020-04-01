@@ -27,7 +27,7 @@ In practice, the algorithm takes as input:
 - [textwrap](https://pypi.org/project/textwrap3/)
 
 # Tutorial
-## Clone the reposity
+## Clone the repository
 ```
 git clone  https://github.com/asmanouira/GWAS-admixed-population-simulator
 cd GWAS-admixed-population-simulator/
