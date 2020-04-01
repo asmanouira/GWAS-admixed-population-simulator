@@ -27,6 +27,11 @@ In practice, the algorithm takes as input:
 - Pandas
 
 # Tutorial
+## Clone the reposity
+```
+git clone  https://github.com/asmanouira/GWAS-admixed-population-simulator
+cd GWAS-admixed-population-simulator/
+```
 
 ## Download the HapMap3 phased data for both CEU and YRI populations
 
