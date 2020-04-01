@@ -87,27 +87,32 @@ convert_phased('yri')
 ```
 ## Generate simulated data using GWAsimulator 
 <ol>
-<li> Prepare the control.dat file for each population </li> 
+<li> Prepare the control_#.dat file for each population </li> 
 <li> Specify in the first line the path of the converted phased data </li>
 <li> Run GWAsimulator: </li>
 </ol>
+
+#### CEU population:
 	
 ``` 
 GWAsimulator control_ceu.dat [seed number]
-GWAsimulator control_yri.dat [seed number] 
 ```
 More details on the [manual](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/GWAsimulator/GWAsimulator_v2.0.pdf)
 
 The program generates gzipped data to save disk space and named in ```chr#.dat.gz```, where ```#``` is the chromosome number. For that, we will gunzip and rename it as as ```PLINK``` format:
 
-CEU population:
 ```
 gunzip *.gz
 for f in *.dat; do
     mv -- "$f" "$(basename -- "$f" .dat)_ceu.ped"
 done
 ```
-YRI population:
+#### YRI population:
+``` 
+GWAsimulator control_yri.dat [seed number]
+```
+And then,
+
 ```
 gunzip *.gz
 for f in *.dat; do
