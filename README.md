@@ -28,7 +28,7 @@ In practice, the algorithm takes as input:
 
 # Tutorial
 
-## Download the HapMap3 phased data for both CEU and YRI popultions
+## Download the HapMap3 phased data for both CEU and YRI populations
 
 #### CEU population
 ```
