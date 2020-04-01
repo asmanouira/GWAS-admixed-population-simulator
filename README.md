@@ -117,9 +117,9 @@ done
 ## Generate .map PLINK files for each chromosome per population
 
 ```
-from utils import map
-map('ceu')
-map('yri')
+from utils import phased2map
+phased2map('ceu')
+phased2map('yri')
 ```
 
 ## Merge the multiple simulated files in one .ped PLINK format
