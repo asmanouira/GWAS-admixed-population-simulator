@@ -1,4 +1,4 @@
-# GWAS-data-simulator
+# GWAS-admixed-population-simulator
 Simulating GWAS data in [PLINK](https://www.cog-genomics.org/plink/) format with GWAsimulator tool using Hapmap3 data
 
 # Description
@@ -98,7 +98,7 @@ convert_phased('yri')
 ``` 
 GWAsimulator control_ceu.txt [seed number]
 ```
-More details on the [manual](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/GWAsimulator/GWAsimulator_v2.0.pdf)
+More details on GWAsimulator [manual](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/GWAsimulator/GWAsimulator_v2.0.pdf).
 
 The program generates gzipped data to save disk space and named in ```chr#.dat.gz```, where ```#``` is the chromosome number. For that, we will gunzip and rename it as as ```PLINK``` format:
 
