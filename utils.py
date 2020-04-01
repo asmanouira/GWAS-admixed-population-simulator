@@ -87,7 +87,7 @@ def convert_phased(population):
 		    phased.append(SNP)
 
 		phased_wrapped = [wrap(i,2) for i in phased]
-		phased_tr = map(list(map(None,*phased_wrapped))
+		phased_tr = map(list,map(None,*phased_wrapped))
 
 	    
 	    # final dataframe
@@ -103,7 +103,7 @@ def convert_phased(population):
 		output= result_dir+'chr'+str(ch)+'_'+population+'.phased'
 		df.to_csv(output, sep=' ', header = None, index = False)
 
-def map(population):
+def phased2map(population):
 	"""
 	Genarates .map PLINK files
 	Markers data: each row represents a SNP for 4 columns:
