@@ -63,7 +63,7 @@ mkdir yri
 cd yri
 
 prefix="ftp://ftp.ncbi.nlm.nih.gov/hapmap/phasing/2009-02_phaseIII/HapMap3_r2/YRI/TRIOS/hapmap3_r2_b36_fwd.consensus.qc.poly.chr";
-suffix="_ceu.phased.gz";
+suffix="_yri.phased.gz";
 
 
 for chr in {1..22}; do
