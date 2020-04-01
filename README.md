@@ -81,10 +81,12 @@ convert_phased('ceu')
 convert_phased('yri')
 ```
 ## Generate simulated data using GWAsimulator 
-
-1 - Prepare the control.dat file for each population
-2 - Specify in the first line the path of the converted phased data
-3 - Run GWAsimulator:
+<ol>
+<li> Prepare the control.dat file for each population </li> 
+<li> Specify in the first line the path of the converted phased data </li>
+<li> Run GWAsimulator: </li>
+<ol>
+	
 ``` 
 GWAsimulator control_ceu.dat [seed number]
 GWAsimulator control_yri.dat [seed number] 
