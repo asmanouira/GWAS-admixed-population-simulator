@@ -1,3 +1,6 @@
+# !/usr/local/lib/python2.7 python 
+# -*- coding=utf-8 -*-  
+
 import os
 import pandas as pd
 from textwrap3 import wrap
@@ -85,12 +88,16 @@ def convert_phased(population):
 		        elif chrom_list[ic][jc] == "a":
 		        	SNP = SNP + '0'
 		    phased.append(SNP)
-
+		
+		# join bi-allelic SNP in one item
 		phased_wrapped = [wrap(i,2) for i in phased]
+		
+		# transpose the list from [SNPsxSAMPLES] to [SAMLESxSNPS]
+		# on Python 2, map() returns a list, this not the case for Pyhton 3!!!
 		phased_tr = map(list,map(None,*phased_wrapped))
-
-	    
-	    # final dataframe
+		
+		
+		# final dataframe
 		df = pd.DataFrame(phased_tr)
 
 		# save data in text files
